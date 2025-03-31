@@ -6,9 +6,30 @@ class Student:
         self.finished_courses = []
         self.courses_in_progress = []
         self.grades = {}
+    def rate_lec(self, lecturer, course, grade):
+        if isinstance(lecturer, Lecturer) and course in lecturer.courses_attached:
+            if course in lecturer.grades:
+                lecturer.grades[course] += [grade]
+            else:
+                lecturer.grades[course] = [grade]
+        else:
+            return 'Ошибка'
 
 
 class Mentor:
+    def __init__(self, name, surname):
+        self.name = name
+        self.surname = surname
+        self.courses_attached = []
+
+class Lecturer(Mentor):
+    def __init__(self, name, surname):
+        self.name = name
+        self.surname = surname
+        self.courses_attached = []
+        self.grades = {}
+
+class Reviewer(Mentor):
     def __init__(self, name, surname):
         self.name = name
         self.surname = surname
@@ -23,21 +44,33 @@ class Mentor:
         else:
             return 'Ошибка'
 
-class Lecturer(Mentor)
+
+Dyatlov = Student('Семен', 'Дятлов', 'your_gender')
+Dyatlov.courses_in_progress += ['Python']
+Dyatlov.courses_in_progress += ['Math']
+
+Antonov = Reviewer('Андрей','Антонов')
+Antonov.courses_attached += ['Python', 'Math']
+
+Dymov = Lecturer('Сергей','Дымов')
+Dymov.courses_attached += ['Python']
+
+Ivanov = Reviewer('Владимир','Иванов')
+Ivanov.courses_attached += ['Python']
+
+Ivanov.rate_hw(Dyatlov, 'Python', 7)
+Antonov.rate_hw(Dyatlov, 'Python', 8)
+Antonov.rate_hw(Dyatlov, 'Math', 10)
+Antonov.rate_hw(Dyatlov, 'Python', 3)
+Antonov.rate_hw(Dyatlov, 'Math', 5)
+
+print(Dyatlov.name, Dyatlov.surname, Dyatlov.grades)
+
+Dyatlov.rate_lec(Dymov, 'Python', 8)
+Dyatlov.rate_lec(Dymov, 'Python', 5)
+Dyatlov.rate_lec(Dymov, 'Math', 9)
+Dyatlov.rate_lec(Dymov, 'Math', 4)
+
+print(Dymov.name, Dymov.surname, Dymov.grades)
 
 
-class Reviewer(Mentor)
-
-
-
-best_student = Student('Ruoy', 'Eman', 'your_gender')
-best_student.courses_in_progress += ['Python']
-
-cool_mentor = Mentor('Some', 'Buddy')
-cool_mentor.courses_attached += ['Python']
-
-cool_mentor.rate_hw(best_student, 'Python', 10)
-cool_mentor.rate_hw(best_student, 'Python', 10)
-cool_mentor.rate_hw(best_student, 'Python', 10)
-
-print(best_student.grades)
