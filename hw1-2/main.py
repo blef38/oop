@@ -14,7 +14,13 @@ class Student:
                 lecturer.grades[course] = [grade]
         else:
             return 'Ошибка'
+    def aver(self):
+        average_length = sum(len(v) for v in self.grades[grade]) / len(self.grades)
+        print(average_length)
+        return average_length
 
+    def __str__(self):
+        return f'Имя: {self.name}, фамилия: {self.surname}, средняя оценка: {self.aver}'
 
 class Mentor:
     def __init__(self, name, surname):
@@ -53,18 +59,18 @@ Antonov = Reviewer('Андрей','Антонов')
 Antonov.courses_attached += ['Python', 'Math']
 
 Dymov = Lecturer('Сергей','Дымов')
-Dymov.courses_attached += ['Python']
+Dymov.courses_attached += ['Python', 'Math']
 
-Ivanov = Reviewer('Владимир','Иванов')
-Ivanov.courses_attached += ['Python']
-
-Ivanov.rate_hw(Dyatlov, 'Python', 7)
-Antonov.rate_hw(Dyatlov, 'Python', 8)
-Antonov.rate_hw(Dyatlov, 'Math', 10)
-Antonov.rate_hw(Dyatlov, 'Python', 3)
-Antonov.rate_hw(Dyatlov, 'Math', 5)
-
-print(Dyatlov.name, Dyatlov.surname, Dyatlov.grades)
+# Ivanov = Reviewer('Владимир','Иванов')
+# Ivanov.courses_attached += ['Python']
+#
+# Ivanov.rate_hw(Dyatlov, 'Python', 7)
+# Antonov.rate_hw(Dyatlov, 'Python', 8)
+# Antonov.rate_hw(Dyatlov, 'Math', 10)
+# Antonov.rate_hw(Dyatlov, 'Python', 3)
+# Antonov.rate_hw(Dyatlov, 'Math', 5)
+#
+# print(Dyatlov.name, Dyatlov.surname, Dyatlov.grades)
 
 Dyatlov.rate_lec(Dymov, 'Python', 8)
 Dyatlov.rate_lec(Dymov, 'Python', 5)
@@ -72,5 +78,4 @@ Dyatlov.rate_lec(Dymov, 'Math', 9)
 Dyatlov.rate_lec(Dymov, 'Math', 4)
 
 print(Dymov.name, Dymov.surname, Dymov.grades)
-
 
