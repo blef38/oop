@@ -59,7 +59,7 @@ class Lecturer(Mentor):
         all_grades = [grade for course_grades in self.grades.values() for grade in course_grades]
         return round(sum(all_grades) / len(all_grades), 2) if all_grades else 0
     def __str__(self):
-        return f'Имя: {self.name},\\n Фамилия: {self.surname}, Средняя оценка за лекции: {self.avg_rate()}'
+        return f'Имя: {self.name}, \nФамилия: {self.surname}, \nСредняя оценка за лекции: {self.avg_rate()}'
     def __eq__(self, other):
         if isinstance(other, Lecturer):
             return self.avg_rate() == other.avg_rate()
@@ -91,6 +91,21 @@ class Reviewer(Mentor):
     def __str__(self):
         return f'Имя: {self.name}, Фамилия: {self.surname}'
 
+def rate_st_avg_for_all_courses(stud_list, course):
+        all_grades = []
+        for stud in stud_list:
+            all_grades += stud.grades[course]
+        print(all_grades)
+        return round(sum(all_grades) / len(all_grades), 2) if all_grades else 0
+
+
+def rate_lec_avg_for_all_courses(lec_list, course):
+    all_grades = []
+    for lec in lec_list:
+        all_grades += lec.grades[course]
+    print(all_grades)
+    return round(sum(all_grades) / len(all_grades), 2) if all_grades else 0
+
 Dyatlov = Student('Семен', 'Дятлов', 'your_gender')
 Dyatlov.courses_in_progress += ['Python']
 Dyatlov.courses_in_progress += ['Math']
@@ -118,7 +133,7 @@ Antonov.rate_hw(Dyatlov, 'Math', 5)
 
 Antonov.rate_hw(Petrov, 'Math', 2)
 Antonov.rate_hw(Petrov, 'Python', 1)
-Antonov.rate_hw(Petrov, 'Math', 4)
+Antonov.rate_hw(Petrov, 'Python', 5)
 
 # print(Dyatlov.name, Dyatlov.surname, Dyatlov.grades)
 
@@ -133,9 +148,12 @@ Dyatlov.rate_lec(Dmitriev, 'Math', 1)
 Petrov.rate_lec(Dmitriev, 'Math', 4)
 
 # print(Dymov.name, Dymov.surname, Dymov.grades)
-print(Dymov)
+# print(Dymov)
 # print(Dyatlov)
 # print(Petrov)
 # print(Dyatlov > Petrov)
-print(Dmitriev)
-print(Dymov > Dmitriev)
+# print(Dmitriev)
+# print(Dymov > Dmitriev)
+
+print(rate_st_avg_for_all_courses([Dyatlov,Petrov],'Python'))
+print(rate_lec_avg_for_all_courses([Dymov,Dmitriev],'Python'))
